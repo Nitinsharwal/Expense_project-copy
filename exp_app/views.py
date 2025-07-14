@@ -40,3 +40,6 @@ def del_history(request,id):
     tracking = Tracker.objects.filter(id=id)
     tracking.delete()
     return redirect('/')
+
+def login(request):
+    return render(request, 'login.html')
