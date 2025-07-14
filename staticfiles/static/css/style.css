@@ -184,7 +184,6 @@ form {
   display: none;
 }
 
-/* Footer */
 .footer {
   margin-top: 50px;
   padding: 20px;
@@ -194,7 +193,6 @@ form {
   border-radius: 10px 10px 0 0;
 }
 
-/* Responsive Design */
 @media (max-width: 600px) {
   .inc-exp-container {
     flex-direction: column;
@@ -232,8 +230,8 @@ form {
 }
 
 .alert-error, .alert-danger {
-  background-color: #f8d7da;
-  color: #721c24;
+  background-color: #ff1c2e;
+  color: #a23e48;
   border-left: 6px solid #dc3545;
 }
 
@@ -244,8 +242,8 @@ form {
 }
 
 .alert-warning {
-  background-color: #fff3cd;
-  color: #856404;
+  background-color: #fe2a2a;
+  color: #954343;
   border-left: 6px solid #ffc107;
 }
 

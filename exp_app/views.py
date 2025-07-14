@@ -13,7 +13,7 @@ def home(request):
         if float(ammount) < 0:
             expense_type = "Debit"
         if float(ammount) == 0:
-            messages.warning(request,"Amount Can't be zero..!")
+            messages.error(request,"Amount Can't be zero..!")
             return redirect('/')
         tracking = Tracker.objects.create(
         ammount=ammount,expense_type=expense_type,
