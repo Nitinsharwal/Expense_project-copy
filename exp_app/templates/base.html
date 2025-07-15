@@ -1,96 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <link rel="icon" type="image/x-icon" href="/media/static/exfav.png">
-  <link rel="stylesheet" href="/media/css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
-
-<body>
-  <nav class="navbar">
-    <div class="navbar-container">
-      <a href="/" class="nav-logo">Expense Tracker</a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="/">Home</a></li>
-        <li><a href="/login">Login</a></li>
-      </ul>
-      <div class="hamburger" onclick="toggleMenu()">
-        <div></div>
-        <div></div>
-        <div></div>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="icon" type="image/x-icon" href="/media/exfav.png" />
+    <link rel="stylesheet" href="/media/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <a href="/" class="nav-logo">Expense Tracker</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="/">Home</a></li>
+          <li><a href="{% url 'login_view' %}">Login</a></li>
+          <li><a href="{% url 'register_view' %}">Register</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'logout_view' %}">Logout</a></li>
+          {% endif %}
+          <li><a target="_blank" href="https://chetan-sharwal-portfolio.netlify.app/">About me</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
       </div>
-    </div>
-  </nav>
-  {% block start %}
-  {% if messages %}
-  {% for message in messages %}
+    </nav>
+    {% if messages %} {% for message in messages %}
     <div class="alert alert-{{ message.tags }}">
       {{ message }}
-      <span class="alert-close" onclick="this.parentElement.style.display='none';">X</span>
+      <span style="margin-left: 400px;"
+        class="alert-close"
+        onclick="this.parentElement.style.display='none';">X</span>
     </div>
-  {% endfor %}
-{% endif %}
-  <div class="container">
-    <div class="header">
-      <img src="https://i.ibb.co/jfScDTC/budget.png" alt="Expense Tracker" />
-      <div class="balance-container">
-        <h2>Your Balance</h2>
-        <h2 id="balance" class="balance">${{current_balance.current_balance}}</h2>
+    {% endfor %} {% endif %} {% block start %}
+    <div class="container">
+      <div class="header">
+        <h3>Hii {{ request.user.first_name }} {{ request.user.last_name }}
+          welcome..!</h3>
+        <img src="https://i.ibb.co/jfScDTC/budget.png" alt="Expense Tracker" />
+        <div class="balance-container">
+          <h2>Your Current Balance</h2>
+          <h2 id="balance" class="balance">
+            ${{current_balance.current_balance}}
+          </h2>
+        </div>
       </div>
-    </div>
-    <div class="inc-exp-container">
-      <div>
-        <h4>Income</h4>
-        <p id="money-plus" class="money plus">+${{income}}</p>
+      <div class="inc-exp-container">
+        <div>
+          <h4>Income</h4>
+          <p id="money-plus" class="money plus">+${{income}}</p>
+        </div>
+        <div>
+          <h4>Expenses</h4>
+          <p id="money-minus" class="money minus">-${{expense}}</p>
+        </div>
       </div>
-      <div>
-        <h4>Expenses</h4>
-        <p id="money-minus" class="money minus">-${{expense}}</p>
-      </div>
-    </div>
-    <h3>History</h3>
-    <ul id="list" class="list">
-      {% for transaction in transactions %}
-        <li class="{% if transaction.expense_type == 'Credit' %}plus{% else %}minus{% endif %}">
-          {{ transaction.description }} 
+      <h3>History</h3>
+      <ul id="list" class="list">
+        {% for transaction in transactions %}
+        <li
+          class="{% if transaction.expense_type == 'Credit' %}plus{% else %}minus{% endif %}"
+        >
+          {{ transaction.description }}
           <span>{{ transaction.ammount }}</span>
           <a class="delete-btn" href="{% url 'del_history' transaction.id %}">
             <i class="fa-solid fa-trash"></i>
           </a>
         </li>
-      {% endfor %}
-    </ul>
-    <ul id="list" class="list"></ul>
-    <h3>Add new transaction</h3>
-    <form id="form" method="POST">
-      {% csrf_token %}
-      <div class="form-control">
-        <label for="text">Description</label>
-        <input name="description" type="text" id="text" placeholder="Enter description..." />
-      </div>
-      <div class="form-control">
-        <label for="amount">Amount <br />
-          <small>(-100 = expense, 100 = income)</small></label>
-        <input name="ammount" type="number" id="amount" placeholder="Enter amount..." />
-      </div>
-      <button type="submit" class="btn">Add transaction</button>
-    </form>
-  </div>
-  <div class="notification-container" id="notification">
-    <p>Please add a description and amount</p>
-  </div>
-  {% endblock start %}
-  <script>
-    function toggleMenu() {
-      document.getElementById('navLinks').classList.toggle('active');
-    }
-  </script>
-</body>
-<footer class="footer">
-  <div class="footer-container">
-      &copy; {{ now|date:"Y" }} Expense Project. All rights reserved.<br>Made By Chetan Sharwal
-  </div>
-</footer>
+        {% endfor %}
+      </ul>
+      <ul id="list" class="list"></ul>
+      <h3>Add new transaction</h3>
+      <form id="form" method="POST">
+        {% csrf_token %}
+        <div class="form-control">
+          <label for="text">Description</label>
+          <input
+            name="description"
+            type="text"
+            id="text"
+            placeholder="Enter description..."
+          />
+        </div>
+        <div class="form-control">
+          <label for="amount"
+            >Amount <br />
+            <small>(-100 = expense, 100 = income)</small></label
+          >
+          <input
+            name="ammount"
+            type="number"
+            id="amount"
+            placeholder="Enter amount..."
+          />
+        </div>
+        <button type="submit" class="btn">Add transaction</button>
+      </form>
+    </div>
+    <div class="notification-container" id="notification">
+      <p>Please add a description and amount</p>
+    </div>
+    {% endblock start %}
+    <script>
+      function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("active");
+      }
+    </script>
+  </body>
+  <footer class="footer">
+    <div class="footer-container">
+      &copy; {{ now|date:"Y" }} Expense Project. All rights reserved.<br />Made
+      By Chetan Sharwal
+    </div>
+  </footer>
 </html>

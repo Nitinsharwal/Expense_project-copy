@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block start %}
+<div class="login-wrapper">
+    <form class="login-form" method="POST">
+      <h2>Login</h2>
+      {% csrf_token %}
+      <label for="username">Username*</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      <p style="font-weight: bold;">Haven't Register? <a href="{% url 'register_view' %}" style="margin-left: 62px; font-weight: bold; text-decoration: none; color: rgb(0, 0, 0);">Register</a></p>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+{% endblock start %}

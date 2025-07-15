@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block start %}
+<div class="login-wrapper " style="background-color: antiquewhite;">
+    <form class="login-form" method="POST">
+      <h2>Register</h2>
+      {% csrf_token %}
+      <label for="username">Username*</label>
+      <input type="text" id="username" name="username" placeholder="Username must be unique" required>
+      <label for="firstname">Firstname</label>
+      <input type="text" id="firstname" name="firstname" placeholder="Enter your firstname" required>
+      <label for="lastname">Lastname</label>
+      <input type="text" id="lastname" name="lastname" placeholder="Enter your lastname" required>
+      <label for="password">Password (use 8 digit password*)</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <p style="font-style: italic;">Already have an Account? <a style="margin-left: 62px; font-weight: bold; color: rgb(0, 0, 0); text-decoration: none;" href="{% url 'login_view' %}">Login</a></p>
+      <button type="submit">Register</button>
+    </form>
+</div> 
+{% endblock %}
