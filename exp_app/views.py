@@ -75,6 +75,7 @@ def register_view(request):
         password = request.POST.get('password')
         firstname = request.POST.get('firstname')
         lastname = request.POST.get('lastname')
+        email = request.POST.get('email')
 
         if len(password) < 8:
             messages.warning(request, "Your password is too short..")
@@ -88,7 +89,8 @@ def register_view(request):
         user = User.objects.create(
             username=username,
             first_name=firstname,
-            last_name=lastname
+            last_name=lastname,
+            email=email
         )
         user.set_password(password)
         user.save()
@@ -103,3 +105,6 @@ def register_view(request):
         return redirect('/login_view/')  
 
     return render(request, 'register_view.html')
+
+def profile(request):
+    return render(request, "profile.html")

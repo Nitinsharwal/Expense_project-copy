@@ -1,5 +1,4 @@
 from django.db import models
-
 # Create your models here.
 class current_ammount(models.Model):
     current_balance = models.FloatField(default=0)

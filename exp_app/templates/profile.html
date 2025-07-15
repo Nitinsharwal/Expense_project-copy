@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block start %}
+<div class="profile-container">
+  <div class="profile-avatar">
+    {% if user.profile.profile_picture %}
+      <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
+    {% else %}
+      {{ user.first_name|slice:":1"|upper }}
+    {% endif %}
+  </div>
+
+  <div class="profile-details">
+    <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+
+    <div class="info-group">
+      <span class="info-label">Username:</span> {{ user.username }}
+    </div>
+    <div class="info-group">
+      <span class="info-label">First Name :</span> {{ user.first_name }}
+    </div>
+    <div class="info-group">
+      <span class="info-label">Last Name:</span> {{ user.last_name }}
+    </div>
+
+    <div class="info-group">
+      <span class="info-label">Email:</span> {{ user.email }}
+    </div>
+  </div>
+</div>
+{% endblock  %}
+
