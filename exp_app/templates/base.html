@@ -114,6 +114,17 @@
       function toggleMenu() {
         document.getElementById("navLinks").classList.toggle("active");
       }
+      const passwordField = document.getElementById("password");
+      const togglePassword = document.getElementById("togglePassword");
+    
+      togglePassword.addEventListener("click", function () {
+        const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+        passwordField.setAttribute("type", type);
+    
+        // Toggle eye / eye-slash icon
+        this.classList.toggle("fa-eye");
+        this.classList.toggle("fa-eye-slash");
+      });
     </script>
   </body>
   <footer class="footer">

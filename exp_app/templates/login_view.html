@@ -8,7 +8,11 @@
       <input type="text" id="username" name="username" placeholder="Enter your username" required>
 
       <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      <div style="position: relative; width: max-content;">
+        <input type="password" id="password" name="password" placeholder="Enter your password" required style="padding-right: 155px;">
+        <i class="fa-solid fa-eye" id="togglePassword" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+      </div>
+      
       <p style="font-weight: bold;">Haven't Register? <a href="{% url 'register_view' %}" style="margin-left: 62px; font-weight: bold; text-decoration: none; color: rgb(0, 0, 0);">Register</a></p>
       <button type="submit">Login</button>
     </form>
