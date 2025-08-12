@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-f@9ltu%n8%7p^x1hhyaj+ve36h2=_xat&v5cytq94d0i2j%0a_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app','127.0.0.1','.now.sh']
 
 
 # Application definition
@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'expense_prj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'expense_db',  
+        'NAME': 'railway',  
         'USER': 'root',     
-        'PASSWORD': '', 
-        'HOST': 'localhost',
-        'PORT': '3306',                 
+        'PASSWORD': 'tyamCzXMZbVnMYGAEMyHkMaCGDqgSOCt', 
+        'HOST': 'mainline.proxy.rlwy.net',
+        'PORT': '46527',                 
     }
 }
 
@@ -125,16 +125,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_DIRS = [os.path.join(BASE_DIR, 'exp_app/static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'exp_app/static')
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'staticfiles/static')
-MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
