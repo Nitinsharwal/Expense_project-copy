@@ -21,10 +21,11 @@
         <a href="/" class="nav-logo">Expense Tracker</a>
         <ul class="nav-links" id="navLinks">
           <li><a href="/">Home</a></li>
-          <li><a href="{% url 'login_view' %}">Login</a></li>
           <li><a href="{% url 'register_view' %}">Register</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'logout_view' %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'login_view' %}">Login</a></li>
           {% endif %}
           <li><a target="_blank" href="https://chetan-sharwal-portfolio.netlify.app/">About me</a></li>
           <li><a href="{% url 'profile' %}">Profile</a></li>
