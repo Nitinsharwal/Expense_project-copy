@@ -35,7 +35,7 @@ def home(request):
         if tracking.expense_type == "Credit":
             income+=tracking.ammount
         else:
-            expense+=tracking.ammount
+            expense-=tracking.ammount
     current_balance, _ = current_ammount.objects.get_or_create(id = 1)
     context =  {'transactions': Tracker.objects.all(),'current_balance':current_balance,'income':income,'expense':expense,'now': now()}
     
